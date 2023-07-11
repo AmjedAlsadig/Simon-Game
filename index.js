@@ -3,7 +3,22 @@ var userInput = [];
 var level = 1 ;
 var start = false ;
 
+var greenAudio = new Audio("sounds/green.mp3");
+var redAudio = new Audio("sounds/red.mp3");
+var yellowAudio = new Audio("sounds/yellow.mp3");
+var blueAudio = new Audio("sounds/blue.mp3");
+var wrongAudio = new Audio("sounds/wrong.mp3");
+
+var audio = {
+    "green" : greenAudio,
+    "red" : redAudio,
+    "yellow" : yellowAudio,
+    "blue": blueAudio,
+    "wrong": wrongAudio
+}
+
 var colors = ["green", "red", "yellow", "blue"];
+
 if(isMobile()){
     $("h1").text("Tap to Start");
     $("h1").click(function(){
@@ -69,8 +84,7 @@ function startOver(){
 }
 
 function makeSound(color){
-    var sound = new Audio("sounds/"+color+".mp3");
-    sound.play();
+    audio[color].play();
 }
 
 function animate(selector){
