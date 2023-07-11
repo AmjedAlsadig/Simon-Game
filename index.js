@@ -4,15 +4,26 @@ var level = 1 ;
 var start = false ;
 
 var colors = ["green", "red", "yellow", "blue"];
-
-$(document).keypress(function(){
-    if (!start) {
-        level = 1;
-        generateSequence(level,seq);
-        $("h1").text("level " + level) ;
-        start = true ;
-    }
-});
+if(isMobile()){
+    $("h1").text("Tap to Start");
+    $("h1").click(function(){
+        if (!start) {
+            level = 1;
+            generateSequence(level,seq);
+            $("h1").text("level " + level) ;
+            start = true ;
+        }
+    });
+}else{
+    $(document).keypress(function(){
+        if (!start) {
+            level = 1;
+            generateSequence(level,seq);
+            $("h1").text("level " + level) ;
+            start = true ;
+        }
+    });
+}
 
 $(".play-btn").click(function(event){
     targetBtn = $(this).attr("id");
@@ -58,14 +69,18 @@ function nextLevel(){
     return ;
 }
 function startOver(){
-    $("h1").text("Game Over, Press Any Key to Restart");
+    userInput=[];
+    seq=[];
+    start = false ;
+    if(isMobile()){
+        $("h1").text("Game Over, Tap to Restart");
+    }else{
+        $("h1").text("Game Over, Press Any Key to Restart");
+    }
     $("body").addClass("game-over");
     setTimeout(function(){
         $("body").removeClass("game-over");
     },200);
-    userInput=[];
-    seq=[];
-    start = false ;
 }
 
 function animate(selector){
@@ -81,3 +96,17 @@ function animate(selector){
     3.loading -preceeding to- the next level 
     4. styling the game .
 */
+
+function isMobile() {
+    if (navigator.userAgent.match(/Android/i)
+    || navigator.userAgent.match(/webOS/i)
+    || navigator.userAgent.match(/iPhone/i)
+    || navigator.userAgent.match(/iPad/i)
+    || navigator.userAgent.match(/iPod/i)
+    || navigator.userAgent.match(/BlackBerry/i)
+    || navigator.userAgent.match(/Windows Phone/i)) {
+       return true ;
+    } else {
+       return false ;
+    }
+}
